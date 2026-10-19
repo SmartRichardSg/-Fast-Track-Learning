@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#173b57">
+<meta name="description" content="Fast Track Learning — set a minimum goal, learn in small chunks, and record your learning journey.">
+<title>Fast Track Learning</title>
+<style>
+:root{--navy:#173b57;--blue:#2878a5;--pale:#edf6fa;--ink:#1e2933;--muted:#61717e;--line:#d8e3e9;--green:#217a58;--red:#b33b3b;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7f9;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.45}
+header{background:var(--navy);color:white;padding:22px 18px 20px}
+.header-inner,main{max-width:900px;margin:auto}
+.brand{font-size:27px;font-weight:800;letter-spacing:-.4px}
+.tagline{font-size:15px;opacity:.9;margin-top:3px}
+main{padding:16px 14px 42px}
+.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;margin-bottom:15px;box-shadow:0 2px 7px #183b5710}
+h2{font-size:21px;margin:0 0 12px;color:var(--navy)}
+h3{font-size:18px;margin:0 0 8px}
+p{margin:7px 0}
+.small{font-size:14px;color:var(--muted)}
+label{display:block;font-weight:700;margin:14px 0 6px}
+input,textarea,select{width:100%;font:inherit;padding:12px;border:1px solid #bdcbd4;border-radius:10px;background:#fff;color:var(--ink)}
+textarea{min-height:85px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:3px solid #b9e1f4;border-color:var(--blue)}
+button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:12px 15px;cursor:pointer;min-height:46px}
+button:focus-visible{outline:3px solid #e7a83e;outline-offset:2px}
+.primary{background:var(--navy);color:white}
+.secondary{background:var(--pale);color:var(--navy);border:1px solid #c9e0eb}
+.danger{background:#fff0f0;color:var(--red);border:1px solid #f0caca}
+.button-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+.top-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.top-row h2{margin-bottom:0}
+.mission-list{display:grid;gap:10px;margin-top:12px}
+.mission-card{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfdfe}
+.mission-card strong{display:block;font-size:18px;color:var(--navy);overflow-wrap:anywhere}
+.mission-card .meta{font-size:13px;color:var(--muted);margin:4px 0 9px}
+.mission-card .button-row{margin-top:8px}
+.badge{display:inline-block;background:#e3f3ea;color:#1b6b49;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:800}
+.hidden{display:none!important}
+.date-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.date-box{background:#f4f8fa;border-radius:10px;padding:10px}
+.date-box span{display:block;font-size:13px;color:var(--muted)}
+.date-box strong{display:block;margin-top:3px;font-size:15px}
+.steps{display:grid;gap:10px}
+.step{border-left:4px solid #65a6c5;background:#f2f8fb;border-radius:7px;padding:10px 12px}
+.step b{color:var(--navy)}
+.notice{background:#fff8e9;border:1px solid #f1dfb5;padding:11px;border-radius:10px;font-size:14px}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 15px 25px}
+@media(min-width:700px){main{padding-top:22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.full{grid-column:1/-1}}
+@media(max-width:420px){.date-grid{grid-template-columns:1fr 1fr}.brand{font-size:24px}.panel{padding:14px}}
+</style>
+</head>
+<body>
+<header><div class="header-inner">
+  <div class="brand">⚡ Fast Track Learning</div>
+  <div class="tagline">Small chunks. Clear goals. Learning you can use.</div>
+</div></header>
+<main>
+  <section class="panel">
+    <div class="top-row"><h2 id="formTitle">Start a learning mission</h2><span class="badge" id="formMode">NEW MISSION</span></div>
+    <p class="small">Create one page for each thing you want to learn. Your starting date is automatic; the last-updated date changes whenever you save edits.</p>
+    <form id="missionForm">
+      <input type="hidden" id="missionId">
+      <div class="form-grid">
+        <div class="full">
+          <label for="subject">What Subject?</label>
+          <input id="subject" required maxlength="120" placeholder="e.g. Learn basic Japanese">
+        </div>
+        <div class="full">
+          <label for="why">Why do I want to learn this?</label>
+          <textarea id="why" placeholder="What will this help me do?"></textarea>
+        </div>
+        <div class="full">
+          <label for="minimum">Minimum Goal</label>
+          <textarea id="minimum" placeholder="What is the smallest useful result I can achieve first? e.g. Learn 5 greetings." required></textarea>
+        </div>
+        <div class="full">
+          <label for="bigPicture">See the Big Picture</label>
+          <textarea id="bigPicture" placeholder="Break the subject into small chunks. What are the main parts, and how do they fit together?"></textarea>
+        </div>
+        <div class="full">
+          <label for="how">How will I learn?</label>
+          <textarea id="how" placeholder="Resources, tools, people, or a simple learning plan."></textarea>
+        </div>
+        <div class="full">
+          <label for="practice">Practice Instruction</label>
+          <textarea id="practice" placeholder="Write one clear instruction for your next practice session."></textarea>
+        </div>
+        <div class="full">
+          <label for="threeStep">My 3-Step Remember & Apply Process</label>
+          <div class="steps">
+            <div class="step"><b>1. Remember</b><br><span class="small">Close your notes. What can I recall in my own words?</span><textarea id="step1" placeholder="What will I recall without looking?"></textarea></div>
+            <div class="step"><b>2. Explain</b><br><span class="small">Explain the key idea simply, as if teaching someone else.</span><textarea id="step2" placeholder="What is the main idea?"></textarea></div>
+            <div class="step"><b>3. Apply</b><br><span class="small">Use it in a small real task or example.</span><textarea id="step3" placeholder="How will I demonstrate or use it?"></textarea></div>
+          </div>
+        </div>
+        <div class="full">
+          <label for="outcome">Notes: Practice Outcome</label>
+          <textarea id="outcome" placeholder="What did I try? What worked? What needs another attempt?"></textarea>
+        </div>
+        <div class="full">
+          <label for="suggestions">My Suggestions / Next Small Step</label>
+          <textarea id="suggestions" placeholder="A next step, a helpful tip, or an adjustment for next time."></textarea>
+        </div>
+        <div class="full">
+          <label for="others">Others</label>
+          <textarea id="others" placeholder="Any other thoughts, links, or reminders."></textarea>
+        </div>
+      </div>
+      <div class="date-grid" style="margin-top:14px">
+        <div class="date-box"><span>Starting date</span><strong id="startDateDisplay">Set automatically</strong></div>
+        <div class="date-box"><span>Last updated</span><strong id="updatedDateDisplay">When saved</strong></div>
+      </div>
+      <div class="button-row">
+        <button class="primary" type="submit" id="saveBtn">Save Mission</button>
+        <button class="secondary hidden" type="button" id="cancelEditBtn">Cancel Edit</button>
+        <button class="secondary" type="button" id="clearBtn">Clear Form</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="top-row"><h2>My Learning Journey</h2><span class="badge" id="missionCount">0 missions</span></div>
+    <p class="small">Open a mission to edit it. You can also delete a mission or back up your records.</p>
+    <div class="button-row">
+      <button class="secondary" id="exportBtn" type="button">Export Backup</button>
+      <button class="secondary" id="importBtn" type="button">Import Backup</button>
+      <input class="hidden" type="file" id="importFile" accept="application/json,.json">
+    </div>
+    <div id="missionList" class="mission-list"><p class="small">No missions yet. Create your first one above.</p></div>
+  </section>
+  <section class="panel">
+    <h2>Fast Track Method</h2>
+    <div class="steps">
+      <div class="step"><b>1. Start with the minimum.</b><br>Choose the smallest useful goal. Make it achievable, not perfect.</div>
+      <div class="step"><b>2. Break it down and see the whole.</b><br>Divide the subject into manageable chunks, then note how the parts connect.</div>
+      <div class="step"><b>3. Remember, explain, apply.</b><br>Recall without looking, explain in simple words, then practise using the knowledge.</div>
+    </div>
+    <p class="notice" style="margin-top:12px"><b>Extra suggestion:</b> End each practice session by writing one thing you learned, one thing to improve, and the next small action. Revisit it the next day to check what you still remember.</p>
+  </section>
+</main>
+<footer>Your missions are saved on this device/browser. Use Export Backup regularly to keep a copy or move records to another device.</footer>
+<script>
+(() => {
+  const STORAGE_KEY = 'fastTrackLearningMissions_v1';
+  const fields = ['subject','why','minimum','bigPicture','how','practice','step1','step2','step3','outcome','suggestions','others'];
+  const $ = id => document.getElementById(id);
+  let missions = [];
+  let editingId = null;
+  const nowISO = () => new Date().toISOString();
+  const dateText = value => {
+    if (!value) return '—';
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? value : d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+  };
+  const safeLoad = () => {
+    try { const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); return Array.isArray(data) ? data : []; }
+    catch(e) { return []; }
+  };
+  const saveAll = () => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(missions)); return true; }
+    catch(e) { alert('Could not save. Your browser storage may be full. Please export a backup and try again.'); return false; }
+  };
+  const escapeHTML = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function resetForm() {
+    $('missionForm').reset(); editingId = null; $('missionId').value = '';
+    $('formTitle').textContent = 'Start a learning mission'; $('formMode').textContent = 'NEW MISSION';
+    $('saveBtn').textContent = 'Save Mission'; $('cancelEditBtn').classList.add('hidden');
+    $('startDateDisplay').textContent = 'Set automatically'; $('updatedDateDisplay').textContent = 'When saved';
+  }
+  function render() {
+    $('missionCount').textContent = `${missions.length} ${missions.length === 1 ? 'mission' : 'missions'}`;
+    const list = $('missionList');
+    if (!missions.length) { list.innerHTML = '<p class="small">No missions yet. Create your first one above.</p>'; return; }
+    const sorted = [...missions].sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    list.innerHTML = sorted.map(m => `
+      <article class="mission-card">
+        <strong>${escapeHTML(m.subject || 'Untitled mission')}</strong>
+        <div class="meta">Started: ${escapeHTML(dateText(m.startedAt))} · Updated: ${escapeHTML(dateText(m.updatedAt))}</div>
+        <p><b>Minimum goal:</b> ${escapeHTML(m.minimum || 'Not set')}</p>
+        <div class="button-row">
+          <button type="button" class="primary" data-edit="${escapeHTML(m.id)}">Open / Edit</button>
+          <button type="button" class="danger" data-delete="${escapeHTML(m.id)}">Delete</button>
+        </div>
+      </article>`).join('');
+  }
+  function loadMission(id) {
+    const m = missions.find(x => x.id === id); if (!m) return;
+    editingId = id; $('missionId').value = id;
+    fields.forEach(k => { $(k).value = m[k] || ''; });
+    $('formTitle').textContent = 'Edit learning mission'; $('formMode').textContent = 'EDITING';
+    $('saveBtn').textContent = 'Save Changes'; $('cancelEditBtn').classList.remove('hidden');
+    $('startDateDisplay').textContent = dateText(m.startedAt);
+    $('updatedDateDisplay').textContent = dateText(m.updatedAt);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  $('missionForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const stamp = nowISO();
+    const data = {};
+    fields.forEach(k => data[k] = $(k).value.trim());
+    if (!data.subject || !data.minimum) { alert('Please fill in Subject and Minimum Goal.'); return; }
+    if (editingId) {
+      const idx = missions.findIndex(x => x.id === editingId); if (idx < 0) return;
+      missions[idx] = {...missions[idx], ...data, updatedAt:stamp};
+    } else {
+      missions.push({id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random()), ...data, startedAt:stamp, updatedAt:stamp});
+    }
+    if (saveAll()) { render(); resetForm(); alert('Mission saved.'); }
+  });
+  $('missionList').addEventListener('click', e => {
+    const edit = e.target.closest('[data-edit]');
+    const del = e.target.closest('[data-delete]');
+    if (edit) loadMission(edit.dataset.edit);
+    if (del) {
+      const m = missions.find(x => x.id === del.dataset.delete);
+      if (m && confirm(`Delete "${m.subject}"? This cannot be undone unless you have a backup.`)) {
+        missions = missions.filter(x => x.id !== m.id);
+        if (saveAll()) { if (editingId === m.id) resetForm(); render(); }
+      }
+    }
+  });
+  $('cancelEditBtn').addEventListener('click', resetForm);
+  $('clearBtn').addEventListener('click', () => { if (confirm('Clear the form? Unsaved text will be lost.')) resetForm(); });
+  $('exportBtn').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify({app:'Fast Track Learning',version:1,exportedAt:nowISO(),missions},null,2)],{type:'application/json'});
+    const url = URL.createObjectURL(blob); const a = document.createElement('a');
+    a.href = url; a.download = 'fast-track-learning-backup.json'; a.click(); URL.revokeObjectURL(url);
+  });
+  $('importBtn').addEventListener('click', () => $('importFile').click());
+  $('importFile').addEventListener('change', async e => {
+    const file = e.target.files[0]; if (!file) return;
+    try {
+      const parsed = JSON.parse(await file.text());
+      const incoming = Array.isArray(parsed) ? parsed : parsed.missions;
+      if (!Array.isArray(incoming) || !incoming.every(m => m && typeof m === 'object' && m.subject)) throw new Error('Invalid backup');
+      if (!confirm(`Import ${incoming.length} mission(s)? Existing missions with the same ID will be replaced; others will be kept.`)) { e.target.value=''; return; }
+      const map = new Map(missions.map(m => [m.id,m]));
+      incoming.forEach(m => map.set(m.id || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random()), {
+        ...m, id:m.id || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random()),
+        startedAt:m.startedAt || nowISO(), updatedAt:m.updatedAt || nowISO()
+      }));
+      missions = [...map.values()];
+      if (saveAll()) { render(); resetForm(); alert('Backup imported.'); }
+    } catch(err) { alert('This file does not look like a valid Fast Track Learning backup.'); }
+    e.target.value = '';
+  });
+  missions = safeLoad(); render();
+})();
+</script>
+</body>
+</html>
